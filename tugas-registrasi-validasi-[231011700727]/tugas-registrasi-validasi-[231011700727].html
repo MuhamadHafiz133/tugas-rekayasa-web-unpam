@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        }
+
+        .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        }
+
+        .form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        }
+
+        .form-group {
+        margin-bottom: 15px;
+        }
+
+        .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        }
+
+        .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        }
+
+        .form-group input:focus {
+        border-color: #007bff;
+        outline: none;
+        }
+
+        .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        .submit-btn:hover {
+        background-color: #0056b3;
+        }
+
+        .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Registrasi</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="fullname">Nama Lengkap:</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <span id="fullnameError" class="error-message"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error-message"></span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="8">
+        <span id="passwordError" class="error-message"></span>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Konfirmasi Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <span id="confirmPasswordError" class="error-message"></span>
+      </div>
+      <button type="submit" class="submit-btn">Daftar</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      document.getElementById('fullnameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('confirmPasswordError').textContent = '';
+
+      const fullname = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      let valid = true;
+
+      if (fullname === '') {
+        document.getElementById('fullnameError').textContent = 'Nama lengkap tidak boleh kosong.';
+        valid = false;
+      }
+
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById('emailError').textContent = 'Masukkan format email yang benar.';
+        valid = false;
+      }
+
+      if (password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Password harus minimal 8 karakter.';
+        valid = false;
+      }
+
+      if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Password dan konfirmasi password harus sama.';
+        valid = false;
+      }
+
+      if (valid) {
+        alert('Registrasi berhasil!');
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
